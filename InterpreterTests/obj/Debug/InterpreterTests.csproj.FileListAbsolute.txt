@@ -1,0 +1,16 @@
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\InterpreterTests.dll
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\InterpreterTests.pdb
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Interpreter.exe
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Interpreter.pdb
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Interpreter.exe.config
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\obj\Debug\InterpreterTests.csprojResolveAssemblyReference.cache
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\obj\Debug\InterpreterTests.csproj.CoreCompileInputs.cache
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\obj\Debug\InterpreterTests.dll
+C:\Users\obejn\source\repos\Interpreter\InterpreterTests\obj\Debug\InterpreterTests.pdb

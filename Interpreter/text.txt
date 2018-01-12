@@ -1,0 +1,198 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace Interpreter
+{
+	public class CodeParser
+	{
+		private string loopCode =
+			"public string RenderLoop(int count, string text){string result = string.Empty;for (int i = 0; i < count; i++)" +
+			"{ result += text;}return result;}";
+
+		//private string loopTTReplacement = @""" + {RenderLoop($1, ""$3"")} + """;
+		//private string loopReplacement = @"for(int i = 0; i < $1; i++) { $3; }";
+		//private string conditionTTReplacement = @""" + RenderIf($1, $3) + """;
+		//private string conditionReplacement = @"if($1){ $3; }";
+
+
+
+
+
+		private string loopRegexTemplate = @"{%@((.|\n)*?)%}((.|\n)*){%@%}";
+		private string loopRuntimeReplacement = @""" + string.Format(""{0}"", RenderLoop($1, string.Format(""{0}"", ""$3""))) + """;
+		//private string loopRuntimeReplacement = @""" + $""{RenderLoop($1, $""$3"")}"" + $""";
+
+		private string conditionRegexTemplate = @"{%\?((.|\n)*?)%}((.|\n)*){%\?%}";
+		private string conditionRuntimeReplacement = @""" + string.Format(""{0}"", ($1 ? ""$3"" : """")) + """;
+		//private string conditionRuntimeReplacement = @""" + $""{($1 ? $""$3"" : """")}"" + $""";
+
+
+		private string arithmeticalRegexTemplate = @"{%=((.|\n)*?)%}";
+		private string arithmeticalRuntimeReplacement = @""" + string.Format(""{0}"", $1) + """;
+		//private string arithmeticalRuntimeReplacement = @""" + $""{$1}"" + $""";
+
+		private string simpleCodeRegexTemplate = @"{%((.|\n)*?)%}";
+		private string simpleRuntimeReplacement = @""";$1output+=""";
+		//private string simpleRuntimeReplacement = "\";\n$1\noutput+=\"";
+
+		private string refactorCodeRegexTemplate = @"({%((.|\n)*?)%})(.[^{%]*)";
+		private string refactorRuntimeReplacement = @"$1 output += ""$4"";";
+
+
+
+		/* public string RenderLoop(int count, string text)
+		 * string result = string.empty;
+		 * for(int i = 0; i < count; i++)
+		 * {
+		 *		result += text;
+		 * }
+		 * return result;
+		 */
+
+
+		private string result;
+
+		public CodeParser()
+		{
+		}
+
+		public string FormatCode(string code)
+		{
+			return string.Format(fullCode, code);
+		}
+
+		public string Parse(string code/*, Variable[] variables, string[] values*/)
+		{
+			string innerCode = "public class Cl { public string Main() { string output = string.Empty;";
+			//innerCode += AppendVariables(variables, values);
+			innerCode += GetInnerCode(code);
+			innerCode += "return output;}";
+			innerCode += $"{loopCode}" + "}";
+			return innerCode;
+			//return FormatCode(code);
+		}
+
+		public string AppendVariables(Variable[] variables, string[] values)
+		{
+			string result = string.Empty;
+			for (int i = 0; i < variables.Length; i++)
+			{
+				result += $"{variables[i]} = {values[i]};";
+			}
+			return result;
+		}
+
+		private string GetInnerCode(string code)
+		{
+			string innerCode = @"output += """;
+			innerCode += ReplaceLoopExpression(code);
+			innerCode = ReplaceConditionExpression(innerCode);
+			innerCode = ReplaceArithmeticalExpression(innerCode);
+			innerCode = ReplaceSimpleExpression(innerCode);
+
+			return innerCode + @""";";
+		}
+
+		public string RenderLoop(int count, string text)
+		{
+			string result = string.Empty;
+			for (int i = 0; i < count; i++)
+			{
+				result += text;
+			}
+			return result;
+		}
+
+		public string ReplaceConditionExpression(string code)
+		{
+			return ReplaceAll(conditionRegexTemplate, code, conditionRuntimeReplacement);
+		}
+
+		public string ReplaceLoopExpression(string code)
+		{
+			return ReplaceAll(loopRegexTemplate, code, loopRuntimeReplacement);
+		}
+
+		public string ReplaceArithmeticalExpression(string code)
+		{
+			return ReplaceAll(arithmeticalRegexTemplate, code, arithmeticalRuntimeReplacement);
+		}
+
+		public string ReplaceSimpleExpression(string code)
+		{
+			var result = ClearSimple(refactorCodeRegexTemplate, code, refactorRuntimeReplacement);
+			return ReplaceAll(simpleCodeRegexTemplate, code, simpleRuntimeReplacement);
+		}
+
+		public string ClearSimple(string regex, string code, string resultTemplate)
+		{
+			Regex loopRegex = new Regex(regex);
+			string result = code;
+			while (loopRegex.Match(result).Success)
+			{
+				result = loopRegex.Replace(result, resultTemplate);
+				break;
+			}
+			return result;
+		}
+
+		public string ReplaceAll(string regex, string code, string resultTemplate)
+		{
+			Regex loopRegex = new Regex(regex);
+			string result = code;
+			while (loopRegex.Match(result).Success)
+			{
+				result = loopRegex.Replace(result, resultTemplate);
+			}
+			return result;
+		}
+
+		//public string ReplaceLoopExpressionTT(string code)
+		//{
+		//	return ReplaceAllTT(loopRegexTemplate, code, loopTTReplacement);
+		//}
+
+		//public string ReplaceConditionExpressionTT(string code)
+		//{
+		//	return ReplaceAllTT(conditionRegexTemplate, code, conditionReplacement);
+		//}
+
+		public string ReplaceArithmeticalExpressionTT(string code)
+		{
+			return ReplaceAllTT(arithmeticalRegexTemplate, code, arithmeticalRuntimeReplacement);
+		}
+
+		public string ReplaceSimpleCodeExpressionTT(string code)
+		{
+			return ReplaceAllTT(simpleCodeRegexTemplate, code, simpleRuntimeReplacement);
+		}
+
+		private string ReplaceAllTT(string regex, string code, string resultTemplate)
+		{
+			Regex loopRegex = new Regex(regex);
+			string result = code;
+			while (loopRegex.Match(result).Success)
+			{
+				result = loopRegex.Replace(result, resultTemplate);
+			}
+			return Regex.Unescape(result);
+		}
+	}
+}
+
+
+//{%?5<2%}da{%?%}
+//"namespace Test"
+//"{"
+//	"public class Runtime"
+//	"{"
+//		"public static void MainMethod()"
+//		"{"
+//			"if({condition}) output += {text};"
+//		"}"
+//	"}"
+//"}"

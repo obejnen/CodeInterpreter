@@ -1,0 +1,13 @@
+D:\Aducation\Interpreter\MethodTest\bin\Debug\MethodTest.exe.config
+D:\Aducation\Interpreter\MethodTest\bin\Debug\MethodTest.exe
+D:\Aducation\Interpreter\MethodTest\bin\Debug\MethodTest.pdb
+D:\Aducation\Interpreter\MethodTest\obj\Debug\MethodTest.csproj.CoreCompileInputs.cache
+D:\Aducation\Interpreter\MethodTest\obj\Debug\MethodTest.exe
+D:\Aducation\Interpreter\MethodTest\obj\Debug\MethodTest.pdb
+C:\Users\obejn\source\repos\Interpreter\MethodTest\bin\Debug\MethodTest.exe.config
+C:\Users\obejn\source\repos\Interpreter\MethodTest\bin\Debug\MethodTest.exe
+C:\Users\obejn\source\repos\Interpreter\MethodTest\bin\Debug\MethodTest.pdb
+C:\Users\obejn\source\repos\Interpreter\MethodTest\obj\Debug\MethodTest.csprojResolveAssemblyReference.cache
+C:\Users\obejn\source\repos\Interpreter\MethodTest\obj\Debug\MethodTest.csproj.CoreCompileInputs.cache
+C:\Users\obejn\source\repos\Interpreter\MethodTest\obj\Debug\MethodTest.exe
+C:\Users\obejn\source\repos\Interpreter\MethodTest\obj\Debug\MethodTest.pdb

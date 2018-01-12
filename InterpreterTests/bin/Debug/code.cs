@@ -1,0 +1,1 @@
+public class Cl { public string Main() { string output = string.Empty;int m = 3;string n = "*";output += "" + string.Format("{0}", RenderLoop(m, string.Format("{0}", "" + string.Format("{0}", n) + ""))) + "";return output;}public string RenderLoop(int count, string text){string result = string.Empty;for (int i = 0; i < count; i++){ result += text;}return result;}}

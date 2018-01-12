@@ -1,0 +1,59 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Text" #>
+<#@ output extension=".cs" #>
+
+// rule 1
+code
+
+//rule 2
+<#
+ 12.ToString();
+#>
+
+//rule 4
+//{%=12.ToString()%}
+<#=12.ToString()#>
+
+<#=
+ 12.ToString()
+#>
+//test
+<#="" + RenderLoop(2, "<" + RenderLoop( 5 , "*") + ">") + ""#>
+
+//{%@ 2 %} < {%@ 2 + 5 %} * {%@ %} > {%@%}
+<#="" + RenderLoop(2, "<" + RenderLoop(2 + 5, "*") + ">") + ""#>
+
+//{%@ 2 %} < {%? 2 > 5 %} * {%?%} > {%@%}
+<#="" + RenderLoop(2, "<" + RenderLoop(23, "*") + ">") + ""#>
+
+
+// rule 3
+<#=
+ RenderLoop(3, "code" + RenderLoop(2, "y"))
+#>
+
+// rule 5
+<#=
+ RenderIf(5>3, "rule5")
+#>
+<#=RenderIf(5<3, "rule4")#>
+
+
+//can be extracted to separate t4 file
+<#+
+ string RenderLoop(int count, string text) {
+  string x = string.Empty;
+  for (var i=0; i<count; i++){
+   x += text;
+  }
+  return x;
+ }
+ 
+ string RenderIf(bool clause, string text){
+  if (clause) {
+   return text;
+  }
+  return string.Empty;
+ }
+#>
